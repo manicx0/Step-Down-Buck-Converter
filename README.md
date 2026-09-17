@@ -56,3 +56,42 @@ a 100 V / 70 mΩ N-channel MOSFET in a TO-252 package. The 100 V rating
 provides adequate margin over the 45 V input accounting for switching
 transients and ringing.
 
+Key references from the LM5116 datasheet (SNVS499I):
+- Section 6.3.6 — Ramp generator and RRAMP justification
+- Section 7.2.2.11 — Output voltage divider equations
+- Section 7.2.2.16 — Comprehensive equations for VOUT > 7.5 V
+- Section 7.4 — Layout guidelines
+
+---
+
+## ⚠️ Warnings & Limitations
+
+- Maximum output voltage is bounded by the 450 ns forced HO off-time:
+  `VOUT_max = VIN × (1 − 450 ns × fSW)`. At 45 V input and 200 kHz,
+  this is approximately 41 V — not a true 45 V output.
+- VCCX (pin 17) must be connected to GND if the external bias feature
+  is not used. Leaving it floating causes unpredictable VCC behavior.
+- This design has not yet been validated on hardware.
+  Use at your own risk in any safety-critical application.
+- High voltage and high current. Always verify polarity of electrolytic
+  output capacitors before powering on.
+
+---
+
+## Acknowledgements
+
+- Texas Instruments LM5116 datasheet (SNVS499I) — design procedure
+  and equations throughout Section 7
+- TI WEBENCH Power Designer for cross-checking component values
+- Infineon BSC070N10NS5 datasheet for MOSFET loss calculations
+
+---
+
+## License
+
+This project is released under the **CERN Open Hardware Licence Version 2 –
+Weakly Reciprocal (CERN-OHL-W-2.0)**.
+
+You are free to study, modify, and distribute this hardware design.
+If you distribute modified versions, you must use the same licence.
+
